@@ -8,10 +8,10 @@
 " If you want fast vim, you should not make these array too big.
 "
 " Scripts involvs dein#add
-let s:plugin_sources = ['plugins.vim', 'private_plugins.vim']
+let s:plugin_sources = ['plugins.vim']
 
 " Directory of scripts of plugin specific settings
-let s:plugin_settings_dir = ['plugin_settings', 'private_plugin_settings']
+let s:plugin_settings_dir = ['plugin_settings']
 
 if &compatible
   set nocompatible " Be iMproved

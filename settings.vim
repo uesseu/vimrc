@@ -65,3 +65,4 @@ endif
 "# Python
 "=============================
 autocmd FileType python set shiftwidth=4
+colorscheme slate
