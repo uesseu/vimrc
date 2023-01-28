@@ -11,7 +11,7 @@
 let s:plugin_sources = ['plugins.vim']
 
 " Directory of scripts of plugin specific settings
-let s:plugin_settings_dir = ['plugin_settings']
+let s:plugin_settings = ['plugin_settings.vim']
 
 if &compatible
   set nocompatible " Be iMproved
@@ -71,8 +71,6 @@ endif
 "=============================
 "# Read_settings_of_plugins
 "=============================
-for s:dirs in s:plugin_settings_dir
-  for file in readdir(g:vimrc_dir.'/'.s:dirs)
-    exe 'source '.g:vimrc_dir.'/'.s:dirs.'/'.file
-  endfor
+for file in s:plugin_settings
+  exe 'source '.g:vimrc_dir.'/'.file
 endfor
