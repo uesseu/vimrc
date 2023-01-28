@@ -1,5 +1,40 @@
+"=============================
+"# ddc
+"=============================
+
+function! s:start_ddc()
+  call ddc#custom#patch_global('ui', 'native')
+  call ddc#custom#patch_global('sourceParams', #{around: #{ maxSize: 500 },})
+  call ddc#custom#patch_global('sources', ['vim-lsp', 'around'])
+  call ddc#custom#patch_global('sourceOptions', #{
+        \   _: #{
+        \     matchers: ['matcher_fuzzy'],
+        \     sorters: ['sorter_fuzzy'],
+        \     converters: ['converter_fuzzy']
+        \   },
+	\   around: #{ mark: 'Around' },
+	\   vim-lsp: #{
+	\     mark: 'LSP',
+	\     forceCompletionPattern: '\w+|\.\w*|:\w*|->\w*' },
+\ })
+  call ddc#enable()
+endfunction
+
+if v:vim_did_enter
+  call s:start_ddc()
+else
+  au VimEnter * call s:start_ddc()
+endif
+
+
 "========================================
-"# Settings
+"# vim_lsp_settings
+"========================================
+let g:markdown_fenced_languages = ['ts=typescript']
+let g:lsp_settings_filetype_typescript = ['typescript-language-server', 'eslint-language-server', 'deno']
+
+"========================================
+"# vim_lsp
 "========================================
 " Lsp settings.
 let g:lsp_diagnostics_enabled = 1
