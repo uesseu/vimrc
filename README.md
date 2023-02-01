@@ -1,6 +1,6 @@
 # Ninja's vimrc
 This is my basic vimrc, which is fast simple and easy to manage.  
-Since, this vimrc is 'basic', it is not ritch.  
+Since, this vimrc is 'basic', it is not rich.  
 
 # Requirement
 - vim or neovim
@@ -28,7 +28,7 @@ Some plugins requires deno.
 
 # Feature
 This vimrc can be read by vim and neovim.
-By this vimrc, on my computer, neovim start up in 10ms.
+By this vimrc, on my computer, neovim starts up in 10ms.
 Since vimrc sometimes become big and not easy to manage,
 I made function to make TOF of vimrc.
 
