@@ -1,7 +1,7 @@
 "========================================
 "# Ninjas_vimrc
 "========================================
-" This is my vimrc, which is fast rich and easy to manage.
+" This is my vimrc, which is fast simple and easy to manage.
 " If you want to read details or TOF, type Ctr-] on word below.
 " README:
 " Tof_Table_of_contents:
