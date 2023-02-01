@@ -2,28 +2,13 @@
 "# Ninjas_vimrc
 "========================================
 " This is my vimrc, which is fast rich and easy to manage.
-" Requires deno.
-"
-"========================================
-"# Install
-"========================================
-" This vimrc was made in ubuntu.
-" Make link to $HOME/.vimrc or $HOME/.config/nvim/init.vim.
-" Some plugins requires deno.
-"========================================
-"# Making_TOF
-"========================================
-" You can yield table of contents by this command
-" :call MakeVimTOF()
-" The table of contents is link to each section.
-" The section name should start by three characters ["# ]
-" and should not involve spaces.
-" Do not make label which name is same as others.
-"
-" If you want to goto table of contents,
-" Ctr-] on next line. It is just a vim script.
+" If you want to read details or TOF, type Ctr-] on word below.
+" README:
 " Tof_Table_of_contents:
-
+"
+" This setting is needed if you want to use links.
+" If you do not want to use, just comment it out.
+set ignorecase
 
 "========================================
 "# Basic_config
@@ -69,7 +54,7 @@ endif
 "========================================
 "# Make_vim_TOF
 "========================================
-function! MakeVimTOF()
+function! MakeVimrcTOF()
   call system('deno run --allow-read '.g:vimrc_dir.'/make_tags.ts'.' '.g:vimrc_dir.'/ --toc' .' > '.g:vimrc_dir.'/tof.vim')
   call system('deno run --allow-read '.g:vimrc_dir.'/make_tags.ts'.' '.g:vimrc_dir.'/ --tag' .' > '.g:vimrc_dir.'/tags')
 endfunction
