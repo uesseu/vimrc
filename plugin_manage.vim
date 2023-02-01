@@ -41,7 +41,6 @@ execute 'set runtimepath+='.s:dein_repo_dir
 "========================================
 call dein#begin(s:dein_dir)
 call dein#add(s:dein_repo_dir)
-let s:at_start = {'lazy': 1, 'on_event': 'VimEnter'}
 for s:plugin_source in s:plugin_sources
   exe 'source '.g:vimrc_dir.'/'.s:plugin_source
 endfor
