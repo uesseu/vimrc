@@ -47,12 +47,14 @@ const tagWriter = (fname: string) => (text: string) => {
 if (args.tag === true){
   console.log('!_TAG_FILE_SORTED	1')
   let tags = await makeTags(detector, tagWriter)
+  tags.push(`README	${args._[0]}README.md	norm gg`)
   for (const tag of tags.sort()) console.log(tag)
 }
 else if (args.toc === true){
   console.log('"========================================')
   console.log('"# Table_of_contents')
   console.log('"========================================')
+  console.log('" README:')
   for (const tag of await makeTags(detector, tocWriter))
     console.log(tag)
 }
