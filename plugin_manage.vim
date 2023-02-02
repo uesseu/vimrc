@@ -1,5 +1,11 @@
 "========================================
-"# Plugins
+"# About_this
+"========================================
+" I selected dein as plugin manager.
+" This script is based on example of dein.
+
+"========================================
+"# Files
 "========================================
 " This vimrc is based on dein which is fast plugin manager.
 " 
@@ -9,9 +15,11 @@
 "
 " Scripts involvs dein#add
 let s:plugin_sources = ['plugins.vim']
+" Plugins__About_this:
 
 " Directory of scripts of plugin specific settings
 let s:plugin_settings = ['plugin_settings.vim']
+" Plugin_settings__About_this:
 
 if &compatible
   set nocompatible " Be iMproved

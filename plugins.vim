@@ -1,5 +1,10 @@
-let s:at_start = {'lazy': 1, 'on_event': 'VimEnter'}
+"========================================
+"# About_this
+"========================================
+" Plugins managed by dein.
+" Number of plugins is little and you may want to add more.
 
+let s:at_start = {'lazy': 1, 'on_event': 'VimEnter'}
 
 "========================================
 "# Needed
@@ -14,6 +19,9 @@ endif
 "========================================
 "# LSP
 "========================================
+" Plugin_settings__vim_lsp:
+" Plugin_settings__vim_lsp_settings:
+" LSP related plugins
 
 " Connector of LSP
 call dein#add('prabirshrestha/vim-lsp', s:at_start)
@@ -24,6 +32,8 @@ call dein#add('mattn/vim-lsp-settings', s:at_start)
 "========================================
 "# Complete
 "========================================
+" Plugin_settings__ddc:
+" Plugins for completion based on ddc.
 
 " Deno based plugin needs this
 call dein#add('vim-denops/denops.vim', s:at_start)

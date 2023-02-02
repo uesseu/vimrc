@@ -4,10 +4,10 @@
 " This is my vimrc, which is fast simple and easy to manage.
 " If you want to read details or TOF, type Ctr-] on word below.
 " README:
-" Tof_Table_of_contents:
+" Tof__Table_of_contents:
 "
 " This setting is needed if you want to use links.
-" If you do not want to use, just comment it out.
+" If you do not want to use it or dislike ignorecase, just comment it out.
 set ignorecase
 
 "========================================
@@ -21,12 +21,12 @@ let g:vimrc_dir = $HOME."/dotfiles/vim"
 
 " Scripts need to be read at first
 let s:no_lazy_vimrc = ['plugin_manage.vim']
+" Plugin_manage__Files:
 
 " Scripts need not to be read at first
 let s:lazy_vimrc = ['settings.vim']
+" Settings__About_this:
 
-" Link to list of script to read plugins
-" Plugin_manage_Plugins:
 
 " If you need not use standard plugins you can set noplugins option
 " set noloadplugins

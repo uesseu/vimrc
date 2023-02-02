@@ -1,6 +1,13 @@
+"========================================
+"# About_this
+"========================================
+" Setting file of plugins.
+
 "=============================
 "# ddc
 "=============================
+" Plugins__Complete:
+" Plugin to complete asynchoronously.
 
 function! s:start_ddc()
   call ddc#custom#patch_global('ui', 'native')
@@ -30,6 +37,9 @@ endif
 "========================================
 "# vim_lsp_settings
 "========================================
+" Plugins__LSP:
+" Plugin which configures LSP automatically.
+
 let g:markdown_fenced_languages = ['ts=typescript']
 let g:lsp_settings_filetype_typescript = ['typescript-language-server', 'eslint-language-server', 'deno']
 let g:lsp_diagnostics_float_insert_mode_enabled = 1
@@ -37,7 +47,9 @@ let g:lsp_diagnostics_float_insert_mode_enabled = 1
 "========================================
 "# vim_lsp
 "========================================
-" Lsp settings.
+" Plugins__LSP:
+" LSP plugin of vim and neovim.
+
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_preview_float = 1
 let g:lsp_inlay_hints_enabled = 1
@@ -55,7 +67,11 @@ autocmd FileType * nmap K <plug>(lsp-hover-float)
 "========================================
 "# Omnifunc
 "========================================
+" Plugins__LSP:
+" Plugin_settings__vim_lsp:
+" Plugin_settings__vim_lsp_settings:
 " If omni completion is needed, this may be helpful.
+
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
   setlocal signcolumn=yes
@@ -64,9 +80,10 @@ endfunction
 "========================================
 "# Python_pip
 "========================================
+" Plugins__LSP:
 " This section adds command to manage python lsp.
 " You can use pip command like below.
-"
+
 " LspPip install numpy
 "
 function! s:lsp_python_pip(module)

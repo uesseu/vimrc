@@ -34,14 +34,14 @@ const tocWriter = (fname: string) => (text: string) =>{
   const path = fname.split('/')
   const label = path[path.length - 1].split('.')[0].replace('-', '_')
   const capitalLabel = label[0].toUpperCase() + label.slice(1)
-  return ('" ' + capitalLabel + '_' + text.slice(3) + ': in ' + fname)
+  return ('" ' + capitalLabel + '__' + text.slice(3) + ':')
 }
 
 const tagWriter = (fname: string) => (text: string) => {
   const path = fname.split('/')
   const label = path[path.length - 1].split('.')[0].replace('-', '_')
   const capitalLabel = label[0].toUpperCase() + label.slice(1)
-  return capitalLabel + '_' + text.slice(3) + '\t' + fname + '\t/^' + text + '/'
+  return capitalLabel + '__' + text.slice(3) + '\t' + fname + '\t/^' + text + '/'
 }
 
 if (args.tag === true){
