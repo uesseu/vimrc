@@ -31,7 +31,7 @@ const g:base_repos = [
 "########################################
 
 " Install dpp if it is not installed.
-if isdirectory(g:dpp_github . 'Shougo/dpp.vim') == 0
+if isdirectory(g:dpp_base . 'installer/done') == 0
   exec "source ".g:dpp_base.'installer/install.vim'
 endif
 
@@ -40,16 +40,18 @@ for repo in g:base_repos
   execute 'set runtimepath^=' .. g:dpp_github . repo
 endfor
 
+const s:dpp_base = g:dpp_base
+const s:ts_config = g:ts_config
+
 " Load startup scripts of dpp state.
 if g:dpp_base->dpp#min#load_state()
   echo 'Installing plugins'
-  call dpp#async_ext_action('installer', 'install')
-  " When failed loading state.
   autocmd User DenopsReady
   \ : echohl WarningMsg
-  \ | echomsg 'dpp load_state() is failed'
+  \ | echomsg 'Installing plugins.'
   \ | echohl NONE
-  \ | call dpp#make_state(s:dpp_base, s:ts_config)
+  \ | call dpp#async_ext_action('installer', 'install')
+  call dpp#make_state(s:dpp_base, s:ts_config)
 endif
 
 " After making state.
@@ -59,8 +61,6 @@ autocmd User Dpp:makeStatePost
   \ | echohl NONE
 
 " Clean up.
-const s:dpp_base = g:dpp_base
-const s:ts_config = g:ts_config
 unlet g:dpp_github
 unlet g:dpp_base
 unlet g:ts_config
