@@ -1,0 +1,51 @@
+########################################
+# The core plugins
+# -------------------------------------
+# This toml is needed.
+########################################
+
+########################################
+# Denops
+# -------------------------------------
+# Deno for vim.
+# Needed for dpp and ddc.
+########################################
+[[plugins]]
+repos = 'vim-denops/denops.vim'
+
+[[plugins]]
+repos = 'vim-denops/denops-shared-server.vim'
+
+########################################
+# DPP
+# -------------------------------------
+# Plugin manager for vim.
+# Needed for all.
+########################################
+[[plugins]]
+# The dark powerd plugin manager.
+repos = 'Shougo/dpp.vim'
+[[plugins]]
+# Git for plugin.
+repos = 'Shougo/dpp-protocol-git'
+[[plugins]]
+# Toml reader for plugin manager.
+repos = 'Shougo/dpp-ext-toml'
+[[plugins]]
+# Lazy plugin loader.
+repos = 'Shougo/dpp-ext-lazy'
+[[plugins]]
+# Local plugins.
+repos = 'Shougo/dpp-ext-local'
+[[plugins]]
+# Plugin installer.
+repo = 'Shougo/dpp-ext-installer'
+hook_add = '''
+command! PluginInstall
+    \ call dpp#make_state()
+    \ | call dpp#async_ext_action('installer', 'install')
+command! PluginUpdate 
+    \ call dpp#make_state()
+    \ | call dpp#async_ext_action('installer', 'update')
+command! PluginApply call dpp#make_state()
+'''
