@@ -15,6 +15,9 @@ repos = 'vim-denops/denops.vim'
 
 [[plugins]]
 repos = 'vim-denops/denops-shared-server.vim'
+hook_add = '''
+let g:denops_server_addr = '127.0.0.1:32123'
+'''
 
 ########################################
 # DPP
@@ -42,10 +45,20 @@ repos = 'Shougo/dpp-ext-local'
 repo = 'Shougo/dpp-ext-installer'
 hook_add = '''
 command! PluginInstall
-    \ call dpp#make_state()
+    \ try
+    \ | call dpp#make_state()
     \ | call dpp#async_ext_action('installer', 'install')
+    \ | catch
+    \ | endtry
 command! PluginUpdate 
-    \ call dpp#make_state()
+    \ try
+    \ | call dpp#make_state()
     \ | call dpp#async_ext_action('installer', 'update')
-command! PluginApply call dpp#make_state()
+    \ | catch
+    \ | endtry
+command! PluginApply
+    \ try
+    \ | call dpp#make_state()
+    \ | catch
+    \ | endtry
 '''

@@ -88,7 +88,7 @@ export class Config extends BaseConfig {
       "local",
       "local",
       {
-        directory: "~/work",
+        directory: args.basePath + "/" + "local",
         options: {
           frozen: true,
           merged: false,
@@ -97,7 +97,6 @@ export class Config extends BaseConfig {
     ) as Plugin[] | undefined;
 
     if (localPlugins) {
-      // Merge localPlugins
       for (const plugin of localPlugins) {
         if (plugin.name in recordPlugins) {
           recordPlugins[plugin.name] = Object.assign(

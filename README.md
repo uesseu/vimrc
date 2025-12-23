@@ -1,6 +1,6 @@
 ![README_JP.md](README_JP.md)
 
-# My vimrc in 2025
+# My vimrc in 2026
 An example of vimrc. This is based on denops and dpp.
 I wrote this because using dpp is not easy for me.
 It is a manual for me in future.

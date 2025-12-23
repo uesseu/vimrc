@@ -5,17 +5,17 @@
 set nocompatible
 
 " Dpp base path.
-const g:dpp_base = expand('<script>:p:h').'/'
+const s:dpp_base = expand('<script>:p:h').'/'
 " Dpp repositry path.
-const g:dpp_github = g:dpp_base . 'repos/github.com/'
+const s:dpp_github = s:dpp_base . 'repos/github.com/'
 " Dpp configure script path.
-const g:ts_config = g:dpp_base.'config.ts'
+const s:ts_config = s:dpp_base.'config.ts'
 " Denops shared server ip.
 const g:denops_server_addr = '127.0.0.1:32123'
 
 " Base repositryes of dpp.
 " These are on github.
-const g:base_repos = [
+const s:base_repos = [
       \'vim-denops/denops-shared-server.vim',
       \'vim-denops/denops.vim',
       \'Shougo/dpp.vim',
@@ -31,20 +31,21 @@ const g:base_repos = [
 "########################################
 
 " Install dpp if it is not installed.
-if isdirectory(g:dpp_base . 'installer/done') == 0
-  exec "source ".g:dpp_base.'installer/install.vim'
+if isdirectory(s:dpp_base . 'installer/done') == 0
+  exec "source ".s:dpp_base.'installer/install.vim'
 endif
 
+set noloadplugins
+au VimEnter * runtime! plugin/**/*.vim
+
+
 " Set runtimepath and start core plugins.
-for repo in g:base_repos
-  execute 'set runtimepath^=' .. g:dpp_github . repo
+for repo in s:base_repos
+  execute 'set runtimepath^=' .. s:dpp_github . repo
 endfor
 
-const s:dpp_base = g:dpp_base
-const s:ts_config = g:ts_config
-
 " Load startup scripts of dpp state.
-if g:dpp_base->dpp#min#load_state()
+if s:dpp_base->dpp#min#load_state()
   echo 'Installing plugins'
   autocmd User DenopsReady
   \ : echohl WarningMsg
@@ -60,8 +61,3 @@ autocmd User Dpp:makeStatePost
   \ | echomsg 'dpp make_state() is done'
   \ | echohl NONE
 
-" Clean up.
-unlet g:dpp_github
-unlet g:dpp_base
-unlet g:ts_config
-unlet g:base_repos

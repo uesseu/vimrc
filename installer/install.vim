@@ -29,9 +29,9 @@ elseif isdirectory(g:dpp_base . 'installer/to_install') == 0
   for repo in g:base_repos
     execute 'set runtimepath^=' .. g:dpp_github . repo
   endfor
+  call mkdir(g:dpp_base.'installer/to_install')
   autocmd User Dpp:makeStatePost :qa
   call dpp#make_state(g:dpp_base, g:ts_config)
-  call mkdir(g:dpp_base.'installer/to_install')
 else
   for repo in g:base_repos
     execute 'set runtimepath^=' .. g:dpp_github . repo
@@ -39,6 +39,7 @@ else
 
   call delete(g:dpp_base.'installer/to_install', 'rf')
   call delete(g:dpp_base.'installer/to_makestate', 'rf')
+  call dpp#make_state(g:dpp_base, g:ts_config)
   call dpp#min#load_state(g:dpp_base)
   call dpp#async_ext_action('installer', 'install')
   call mkdir(g:dpp_base.'installer/done')
