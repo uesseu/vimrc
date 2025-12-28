@@ -30,35 +30,23 @@ let g:denops_server_addr = '127.0.0.1:32123'
 repos = 'Shougo/dpp.vim'
 [[plugins]]
 # Git for plugin.
+lazy = true
 repos = 'Shougo/dpp-protocol-git'
 [[plugins]]
 # Toml reader for plugin manager.
+lazy = true
 repos = 'Shougo/dpp-ext-toml'
 [[plugins]]
 # Lazy plugin loader.
+lazy = true
 repos = 'Shougo/dpp-ext-lazy'
 [[plugins]]
 # Local plugins.
+lazy = true
 repos = 'Shougo/dpp-ext-local'
 [[plugins]]
 # Plugin installer.
+lazy = true
 repo = 'Shougo/dpp-ext-installer'
 hook_add = '''
-command! PluginInstall
-    \ try
-    \ | call dpp#make_state()
-    \ | call dpp#async_ext_action('installer', 'install')
-    \ | catch
-    \ | endtry
-command! PluginUpdate 
-    \ try
-    \ | call dpp#make_state()
-    \ | call dpp#async_ext_action('installer', 'update')
-    \ | catch
-    \ | endtry
-command! PluginApply
-    \ try
-    \ | call dpp#make_state()
-    \ | catch
-    \ | endtry
 '''
