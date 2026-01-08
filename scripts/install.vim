@@ -7,6 +7,9 @@
 function Install(base_repos, dpp_base, scripts)
   echomsg 'This is the first time bootup. It will automatically reboot after installation.'
   const presets = json_decode(system("deno -A ".a:dpp_base."/scripts/presets.ts"))
+  if isdirectory(a:dpp_base.'/plugin_config') == 0
+    call mkdir(a:dpp_base.'/plugin_config')
+  endif
   exec "cd ".a:dpp_base.'/plugin_config'
   for name in keys(presets)
     if isdirectory(name) == 0
