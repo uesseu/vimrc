@@ -1,0 +1,37 @@
+import { parse, stringify } from "jsr:@std/toml";
+let data = parse(Deno.readTextFileSync('/home/ninja/.cache/dpp/presets.toml'))
+let result = data
+
+
+const required = (data)=>{
+  for (const d in data) {
+    if (data[d].require && data[d].enabled) {
+      return true
+    }
+  }
+  return false
+}
+
+while (required(data)){
+  for (const name in data){
+    if ( data[name].enabled ){
+      if (data[name].require){
+        for (const require of data[name].require) data[require].enabled = true
+        delete data[name].require
+      }
+    }
+  }
+}
+
+for (const name in data){
+  if ( !data[name].enabled === true ) {
+    delete data[name]
+  }
+  else {
+    delete data[name].enabled
+  }
+}
+
+for (const name in data){
+}
+console.log(JSON.stringify(data))

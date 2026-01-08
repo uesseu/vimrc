@@ -6,12 +6,14 @@ I wrote this because using dpp is not easy for me.
 It is a manual for me in future.
 
 # Feature
-
-- Vim and neovim can be used!
-- Crazy speed! Especially startup time!
-- Easy to customize!(but, vim script not lua)
+- Vim and neovim can be used.
+- Not so slow I think.
+- Easy to edit.(Because I am a novice)
+- Based on [dpp.vim](https://github.com/Shougo/dpp.vim).
+- With presets.(By this, I can divide private and public vimrc.)
 
 # Usage
+You can edit presets.toml to select plugins.
 Source the 'vimrc' in this repository from the vimrc or init.vim.
 
 ```vim
@@ -20,26 +22,40 @@ source [absolute source of vimrc]
 
 Then boot vim twice.
 
-# Files and directories
-Files, user should edit.
+# Configuration commands
+Apply configuration. If you use ```PluginConfig``` or ```Vimrc``` command, 
+it may not be needed.
+```vim
+PluginApply
+```
 
-- config
-  + Alternate files of vimrc.
-  + If the filename extension is vim, the script will be loaded.
-  + The order is numerical and alphabetical.
-  + All the files will be merged to one file.(for simplicity and speed)
-- plugin_config
-  + Toml files for dpp.
+Edit plugin tomls.
+The plugins tomls are placed in ```plugin_config``` and
+it is divided in to multiple directoried.
+```vim
+PluginConfig [plugins]
+```
 
-Files, user can edit.
-- scripts/config.ts
-  + File to configure dpp, written in typescript.
+Edit configuration files. My vimrc is divided in to
+multiple small scripts and they are merged into big vimrc.
+This makes my vimrc easy to management and fast to boot.
+```vim
+Vimrc [config_file]
+```
 
-Files automatically made.
+Install plugins. If you edit plugin tomls, you shoudl run it.
+```vim
+PluginInstall
+```
 
-- vim: State directory of vim.
-- nvim: State directory of neovim.
-- repos: Repository of plugins.
+Update plugins.
+```vim
+PluginUpdate
+```
 
-Files you should not edit.
-- installer/install.vim: Installer script
+Erase plugins. If you run it, vim will try to re-install plugins again.
+```vim
+PluginReset
+```
+
+

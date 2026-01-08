@@ -1,0 +1,44 @@
+############################################################
+# If you write this file, the vimrc downloads presets.
+# By this feature, my personal vimrc and vimrc in the public repository
+# can be divided easily ;). Relationships can be also written.
+############################################################
+# Each section have a 'url' item.
+# Optionally, 'require'(default is blank) and
+# 'disabled'(default is false) can be set.
+#
+# Example
+# > [example]
+# > url=https://github.com/[user]/[repository]
+# > require=["complete"]
+# > disabled=true
+############################################################
+
+[core]
+# Needed plugins. It includes dpp and denops.
+enabled = true
+url="https://github.com/uesseu/myvimrc-settings-core"
+
+[complete]
+# Plugins for auto completion. Ddc is the frame work.
+enabled = true
+url="https://github.com/uesseu/myvimrc-settings-complete"
+
+[lsp]
+# LSP plugins. For example, vim-lsp and vim-lsp-settings.
+enabled = true
+require=["complete"]
+url="https://github.com/uesseu/myvimrc-settings-lsp"
+
+[tools]
+# Some tools I prefer.
+url="https://github.com/uesseu/myvimrc-settings-tools"
+
+[language]
+# Some language specific tools.
+url="https://github.com/uesseu/myvimrc-settings-language"
+
+[japanese]
+# Tools for japanese.
+require=["complete"]
+url="https://github.com/uesseu/myvimrc-settings-japanese"

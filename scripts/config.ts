@@ -5,69 +5,82 @@
 // Place for toml files of plugins.
 const dir="plugin_config"
 
-import {
-  BaseConfig,
-  ContextBuilder,
-  Dpp,
-  Plugin,
-} from "https://deno.land/x/dpp_vim@v0.0.2/types.ts";
-import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.0.2/deps.ts";
+import { BaseConfig, ContextBuilder, Dpp, Plugin } from "jsr:@shougo/dpp-vim@~3.1.0/config";
 
-type Toml = {
+interface Toml {
   hooks_file?: string;
   ftplugins?: Record<string, string>;
   plugins: Plugin[];
 };
 
-type LazyMakeStateResult = {
+interface LazyResult {
   plugins: Plugin[];
   stateLines: string[];
-};
+}
 
-export class Config extends BaseConfig {
-  override async config(args: {
-    denops: Denops;
+interface Args {
+    denops
     contextBuilder: ContextBuilder;
     basePath: string;
     dpp: Dpp;
-  }): Promise<{
-    plugins: Plugin[];
-    stateLines: string[];
-  }> {
-    args.contextBuilder.setGlobal({
-      protocols: ["git"],
-    });
+}
 
+interface PluginState {
+  plugins: Plugin[]
+  stateLines: string[]
+}
+
+const filter_fname = (fname) => {
+  if (fname.endsWith(".toml")) {
+    return true
+  }
+  if (fname[0] === '_') {
+    return false
+  }
+  return false
+}
+
+const namesort = (x, y)=>[x.name, y.name].sort()[0] === x.name? -1 : 1
+const getDir = (name): DirEntry=> Array.from(Deno.readDirSync(name)).sort(namesort)
+
+export class Config extends BaseConfig {
+  override async config(args: Args): Promise<PluginState> {
+    args.contextBuilder.setGlobal({ protocols: ["git"] });
     const [context, options] = await args.contextBuilder.get(args.denops);
-    // Load toml plugins
+    const plugins: Record<string, Plugin> = {};
+    const ftplugins: Record<string, string> = {};
+    const hooksFiles: string[] = [];
     const tomls: Toml[] = [];
-    const tomlFnames = Deno.readDirSync(args.basePath + "/" + dir);
-    for (const tomlFname of tomlFnames){
-      const toml = await args.dpp.extAction(
-        args.denops, context, options, "toml", "load",
-        {
-          path: args.basePath + "/" + dir + "/" + tomlFname.name,
-          options: {
-            lazy: false,
-          },
-        },
-      ) as Toml | undefined;
-      if (toml) {
-        tomls.push(toml);
+
+    // Toml
+    const flavorDir = `${args.basePath}/${dir}`
+    for (const pack of getDir(args.basePath + "/" + dir)){
+      const flavors = getDir(`${flavorDir}/${pack.name}`)
+      for (const flavor of flavors){
+        if (!flavor.isDirectory) continue
+        const tomlFnames = getDir(`${flavorDir}/${pack.name}/${flavor.name}`)
+        for (const tomlFname of tomlFnames){
+          if (!filter_fname(tomlFname.name)) continue
+          const toml: Toml | undefined = await args.dpp.extAction(
+            args.denops, context, options, "toml", "load",
+            {
+              path: `${flavorDir}/${pack.name}/${flavor.name}/${tomlFname.name}`,
+              options: { lazy: true, sourced: true },
+            },
+          )
+          if (toml) {
+            tomls.push(toml);
+          }
+        }
       }
     }
 
-    // Merge toml results
-    const recordPlugins: Record<string, Plugin> = {};
-    const ftplugins: Record<string, string> = {};
-    const hooksFiles: string[] = [];
     for (const toml of tomls) {
       for (const plugin of toml.plugins) {
-        recordPlugins[plugin.name] = plugin;
+        plugins[plugin.name] = plugin;
       }
-
       if (toml.ftplugins) {
-        for (const filetype of Object.keys(toml.ftplugins)) {
+        for (const filetype in toml.ftplugins) {
           if (ftplugins[filetype]) {
             ftplugins[filetype] += `\n${toml.ftplugins[filetype]}`;
           } else {
@@ -81,44 +94,10 @@ export class Config extends BaseConfig {
       }
     }
 
-    const localPlugins = await args.dpp.extAction(
-      args.denops,
-      context,
-      options,
-      "local",
-      "local",
-      {
-        directory: args.basePath + "/" + "local",
-        options: {
-          frozen: true,
-          merged: false,
-        },
-      },
-    ) as Plugin[] | undefined;
-
-    if (localPlugins) {
-      for (const plugin of localPlugins) {
-        if (plugin.name in recordPlugins) {
-          recordPlugins[plugin.name] = Object.assign(
-            recordPlugins[plugin.name],
-            plugin,
-          );
-        } else {
-          recordPlugins[plugin.name] = plugin;
-        }
-      }
-    }
-
-    const lazyResult = await args.dpp.extAction(
-      args.denops,
-      context,
-      options,
-      "lazy",
-      "makeState",
-      {
-        plugins: Object.values(recordPlugins),
-      },
-    ) as LazyMakeStateResult | undefined;
+    const lazyResult: LazyResult | undefined = await args.dpp.extAction(
+      args.denops, context, options, "lazy", "makeState",
+      { plugins: Object.values(plugins), },
+    )
 
     return {
       ftplugins,
