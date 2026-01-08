@@ -1,7 +1,7 @@
 import { parse, stringify } from "jsr:@std/toml";
 import { argv } from 'node:process';
 
-let data = parse(Deno.readTextFileSync(argv[3]))
+let data = parse(Deno.readTextFileSync(argv[2]))
 let result = data
 
 
