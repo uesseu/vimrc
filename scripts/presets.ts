@@ -1,5 +1,7 @@
 import { parse, stringify } from "jsr:@std/toml";
-let data = parse(Deno.readTextFileSync('/home/ninja/.cache/dpp/presets.toml'))
+import { argv } from 'node:process';
+
+let data = parse(Deno.readTextFileSync(argv[3]))
 let result = data
 
 
