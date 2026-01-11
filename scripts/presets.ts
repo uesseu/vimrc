@@ -1,9 +1,14 @@
 import { parse, stringify } from "jsr:@std/toml";
 import { argv } from 'node:process';
 
-let data = parse(Deno.readTextFileSync(argv[2]))
-let result = data
 
+let directory = 'presets'
+let data = {}
+for (const fname of Deno.readDirSync(directory)) {
+  const d = parse(Deno.readTextFileSync(`${directory}/${fname.name}`))
+  for (const name in d)
+    data[name] = d[name]
+}
 
 const required = (data)=>{
   for (const d in data) {
@@ -18,7 +23,9 @@ while (required(data)){
   for (const name in data){
     if ( data[name].enabled ){
       if (data[name].require){
-        for (const require of data[name].require) data[require].enabled = true
+        for (const require of data[name].require){
+          data[require].enabled = true
+        }
         delete data[name].require
       }
     }

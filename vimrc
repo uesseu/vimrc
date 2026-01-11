@@ -3,8 +3,8 @@
 "#=====================================================================
 "# From here you can configure vimrc
 "######################################################################
-" Give denops server all the privilleges.
 
+" Give denops server all the privilleges.
 let g:denops#server#deno_args = ['-A']
 " Denops shared server ip.
 const g:denops_server_addr = '127.0.0.1:32123'
@@ -52,7 +52,8 @@ endfor
 "######################################################################
 if isdirectory(s:dpp_base . s:scripts .'/done') == 0
   exec "source ".s:dpp_base. s:scripts . '/install.vim'
-  call Install(s:base_repos, s:dpp_base, s:scripts)
+  call InstallPresets(s:base_repos, s:dpp_base, s:scripts)
+  call InstallPlugins(s:base_repos, s:dpp_base, s:scripts)
 endif
 
 if !s:lazy_builtin_plugins

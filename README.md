@@ -13,8 +13,9 @@ It is a manual for me in future.
 - With presets.(By this, I can divide private and public vimrc.)
 
 # Usage
-You can edit presets.toml to select plugins.
+You can edit toml files in presets/ to select plugins.
 Source the 'vimrc' in this repository from the vimrc or init.vim.
+This vimrc clones git repositories and so, lets make repositories!
 
 ```vim
 source [absolute source of vimrc]

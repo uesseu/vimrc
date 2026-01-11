@@ -3,11 +3,8 @@
 "# Needed for first boot or reinstall.
 "########################################
 
-
-function Install(base_repos, dpp_base, scripts)
-  echomsg 'This is the first time bootup. It will automatically reboot after installation.'
-  echo "deno -A ".a:dpp_base."scripts/presets.ts ".a:dpp_base."presets.toml"
-  const presets = json_decode(system("deno -A ".a:dpp_base."/scripts/presets.ts ".a:dpp_base."/presets.toml"))
+function InstallPresets(base_repos, dpp_base, scripts)
+  let presets = json_decode(system("deno -A ".a:dpp_base."/scripts/presets.ts"))
   if isdirectory(a:dpp_base.'/plugin_config') == 0
     call mkdir(a:dpp_base.'/plugin_config')
   endif
@@ -18,6 +15,9 @@ function Install(base_repos, dpp_base, scripts)
       call system("git clone ".presets[name]['url']." ".name)
     endif
   endfor
+endfunction
+
+function InstallPlugins(base_repos, dpp_base, scripts)
   exec "cd ".a:dpp_base
   const dpp_github = a:dpp_base . 'repos/github.com/'
   const s:ts_config = a:dpp_base . 'scripts/config.ts'
