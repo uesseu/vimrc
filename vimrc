@@ -188,5 +188,6 @@ filetype on
 if s:lazy_builtin_plugins
   set noloadplugins
   au VimEnter * runtime! plugin/**/*.vim
+  au BufReadPost * filetype plugin on
 endif
 
